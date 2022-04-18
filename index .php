@@ -16,7 +16,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <a class="nav-link active text-light" aria-current="page" href="login.html">login</a>
+                <a class="nav-link active text-light" aria-current="page" href="login.php">login</a>
         </div>
         </div>
     </nav>
@@ -26,8 +26,8 @@
         <h1>Hello !</h1>
         </div>
         <div class="text-left w-100 ms-5 mt-3 m-auto">
-            <p class="fs-5"><a href="signup.html">Sign up</a> to start creating your contact list.</p>
-            <p class="fs-5">Already have an account? <a href="login.html"> Login here</a></p>
+            <p class="fs-5"><a href="signup.php">Sign up</a> to start creating your contact list.</p>
+            <p class="fs-5">Already have an account? <a href="login.php"> Login here</a></p>
         </div>
     </div>
     </main>

@@ -1,33 +1,33 @@
+<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <title>Contacts List</title>
 </head>
 <style>
 .model {
-        margin: 0;
-        padding: 0;
-        max-width: 500px;
+        margin: auto;
+        width: 500px;
         height: 500px;
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        background-color: whitesmoke;
+        background-color: #aaa;
     }
 .hidden {
         display: none;
     }
 .close {
   color: #aaa;
-  float: left;
-  font-size: 28px;
-  font-weight: bold;
+  float: right;
+  font-size: 36px;
+  font-weight: bolder;
 }
 .modal-content{
     border: none !important;
@@ -63,61 +63,43 @@
         <h1>Contacts List :</h1>
        <button class=" btn bg-secondary text-white " id="modaladd"> Add</button>
     </div>
-    <table class="table ">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Email</th>
-            <th scope="col">Phone</th>
-            <th scope="col">Adresse</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">Alonzo E Barber</th>
-            <td>alonzo@barber.com</td>
-            <td>818-740-3656</td>
-            <td>848 Glendale Avenue LOs angekes california 90017 </td>
-            <td><a class="a" href="edit.html">Edit</a></td>
-            <td><a class="a" href="">Delete</a></td>
-          </tr>
-          <tr>
-            <th scope="row">Annmarie</th>
-            <td>annmarie@nreeves.com</td>
-            <td>413-626-0746</td>
-            <td>3984 Leverton Cove Road Springfield Massachuetts 01109</td>
-            <td><a class="a" href="edit.html">Edit</a></td>
-            <td><a class="a" href="">Delete</a></td>
-          </tr>
-          <tr>
-            <th scope="row">Raouya</th>
-            <td>raouya@raouya.com</td>
-            <td>123-456-6789</td>
-            <td> Lot Riad Rue widad </td>
-            <td><a class="a" href="edit.html">Edit</a></td>
-            <td><a class="a" href="">Delete</a></td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="container">
-        <div class="model hidden">
-        <div class="modal-content border-none">
-        <span class="close ">&times;</span>
-      </div>
+    <?php 
+      require_once 'contact.php';
+      $contact = new Contacts();
+      $contact->affichage($_SESSION['id']);
+      
+    ?>
+      <div class="container hidden">
+        <div class="model p-5 d-flex flex-column"  id="model">
+          <div><span class="close text-black" id="close"><i class="bi bi-x-lg"></i></span></div>
+        
       <form class="d-flex flex-column" method="POST" name="form">
         <label class="form-label">name</label>
-        <input type="text"  class="form-control " name="name" placeholder="Entrer le nom">
+        <input type="text"  class="form-control " name="username" placeholder="Entrer le nom">
         <label class="form-label">email</label>
         <input type="text"  class="form-control " name="email" placeholder="Enter l'email">
         <label class="form-label">Phone</label>
         <input type="tel"  class="form-control " name="phone" placeholder="Enter phone">
         <label class="form-label">Adresse</label>
-        <input type="Adresse"  class="form-control "  name="enroll" placeholder="Enter Adresse">
-        <input class="" type="submit" value="add" name="save" >  
+        <input type="Adresse"  class="form-control "  name="adresse" placeholder="Enter Adresse">
+        <input class="mt-4 py-2 fw-bold" type="submit" value="Add" name="save" > 
+        <?php
+          if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            if(isset($_POST['save'])){
+                extract($_POST);
+                $contact = new Contacts();
+                $contact->setInfoContact($username,$phone,$email,$adresse,$_SESSION['id']);
+                $contact->addContacts();
+            }
+            
+        }
+        ?> 
     </form>
+        </div>
+      </div>
     
   </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-<script src="modaladd.js"></script>
+<script src="./modaladd.js">  </script>
 </body>
 </html>

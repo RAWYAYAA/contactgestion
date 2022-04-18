@@ -39,11 +39,22 @@
                 <input type="password" class="form-control" placeholder="Enter your password" id="password"  name="password">
                 <small id="messagepassword" class="text-danger "></small>
             </div>
-                <button type="submit" class="btn bg-secondary text-white w-100" name="submit" >Log in</button>
-                <p class="mt-3 text-center text">No account ?<b><a class="text-decoration-none" href="signup.html">sign up</a></b> here.</p>
+                <button type="submit" class="btn bg-secondary text-white w-100" name="log" >Log in</button>
+                <p class="mt-3 text-center text">No account ?<b><a class="text-decoration-none" href="signup.php">sign up</a></b> here.</p>
         </form>
    </main>
- 
+   <?php
+    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if(isset($_POST['log'])){
+            require_once 'user.php';
+            extract($_POST);
+            $user = new User($username , $password);
+            $user->loginUser();
+        }
+        
+    }
+
+ ?>
 
     
 
