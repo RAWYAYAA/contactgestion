@@ -44,7 +44,7 @@
                 <input type="password" class="form-control" placeholder="Confirm your  password" id="conpassword" name="conpassword">
                 <small id="messageconfpass" class="text-danger "></small>
             </div>
-                <button type="submit" class="btn bg-secondary text-white w-100"  name="register" onclick="validate();" >SIGN UP</button>
+                <button type="submit" class="btn bg-secondary text-white w-100"  name="register" id="sign" >SIGN UP</button>
                 <p class="mt-3 text-center text">already have an account ?<b><a class="text-decoration-none" href="login.php">login</a></b> here.</p>
         </form>
    </main>

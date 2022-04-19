@@ -43,6 +43,7 @@ session_start();
             if($this->getUserByUserName()){
                 $req = "INSERT INTO users (username, password ) VALUES ('$this->username' , '$this->password')";
                 $conn->query($req);
+                echo '<script>window.location="login.php"</script>';
             }else{
                 echo '<script>alert("user existe")</script>';
             }

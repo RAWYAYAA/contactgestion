@@ -67,11 +67,10 @@
       require_once 'contact.php';
       $contact = new Contacts();
       $contact->affichage($_SESSION['id']);
-      
     ?>
       <div class="container hidden">
         <div class="model p-5 d-flex flex-column"  id="model">
-          <div><span class="close text-black" id="close"><i class="bi bi-x-lg"></i></span></div>
+          <div><span class="close text-black" id="close"><i class=" bi bi-x-lg"></i></span></div>
         
       <form class="d-flex flex-column" method="POST" name="form">
         <label class="form-label">name</label>
@@ -82,7 +81,7 @@
         <input type="tel"  class="form-control " name="phone" placeholder="Enter phone">
         <label class="form-label">Adresse</label>
         <input type="Adresse"  class="form-control "  name="adresse" placeholder="Enter Adresse">
-        <input class="mt-4 py-2 fw-bold" type="submit" value="Add" name="save" > 
+        <input class="mt-4 py-2 fw-bold" type="submit" value="Add" name="save" id="ad" > 
         <?php
           if($_SERVER['REQUEST_METHOD'] == 'POST'){
             if(isset($_POST['save'])){
@@ -91,15 +90,43 @@
                 $contact->setInfoContact($username,$phone,$email,$adresse,$_SESSION['id']);
                 $contact->addContacts();
             }
-            
         }
         ?> 
     </form>
         </div>
       </div>
-    
   </main>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <script src="./modaladd.js">  </script>
+<script>
+  var ph=/^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/;
+var em=/[^@ \t\r\n]+@[^@ \t\r\n]+\.[^@ \t\r\n]+/gm;
+let submit = document.querySelector("#ad")
+submit.addEventListener('click', function(e){
+
+        
+    if( document.form.username.value == "" ) {
+       alert( "Please enter your name!" );
+       document.form.username.focus() ;
+       e.preventDefault();
+    }
+    else if(!(em.test(document.form.email.value))){
+        alert( "Please enter a valid email!" );
+        document.form.email.focus() ;
+        e.preventDefault();
+    }
+    else if(document.form.phone.value =="" ||!( ph.test( document.form.phone.value ))){
+        alert( "Please enter a valid phone!" );
+        document.form.phone.focus() ;
+        e.preventDefault();
+    }
+    else if(document.form.adresse.value ==""){
+        alert( "Please enter your adresse!" );
+        document.form.adresse.focus() ;
+        e.preventDefault();
+    }
+
+})
+</script>
 </body>
 </html>

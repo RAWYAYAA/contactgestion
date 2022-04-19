@@ -26,56 +26,38 @@ class Contacts extends Connexion{
         return $this->phone=$Phone;
         return $this->adresse=$adresse;
     }
-    // protected function getAllUsers(){
-    //    $sql="SELECT * FROM Contacts" ;
-    //    $result=$this->Connect()->query($sql);
-    //    $numRows=$result->num_rows;
-    //    if($numRows>0){
-    //     while($row=$result->fetch_assoc()){
-    //         $data[]=$row;
-    //     }
-    //     return $data;
-    //    }
-
-    // }
     public function addContacts(){
         $conn = $this->connect();
-        $req = "INSERT INTO CONTACTS (username, phone,email,address,iduser) VALUES ('$this->username','$this->email' ,'$this->phone', '$this->adresse', '$this->idUser') ";
+        $req = "INSERT INTO CONTACTS (username, phone,email,address,iduser) VALUES ('$this->username','$this->phone' ,'$this->email' , '$this->adresse', '$this->idUser') ";
         $conn->query($req); 
     }
 
-    public function editContacts($idUser){
-$conn = $this->connect();      
-$idUser = $_GET['idUser'];
-$res = "SELECT * FROM `contacts` WHERE iduser ='$idUser'";
-$req = $conn->query($res);
-if($req -> num_rows > 0){
-while($row = $req->fetch_assoc()){
-            $username = $_POST['username']; 
-            $email = $_POST['email']; 
-            $phone = $_POST['phone']; 
-            $adresse = $_POST['adresse']; 
+public function getEditContacts($id){
+    $conn = $this->connect();      
+    $res = "SELECT * FROM `contacts` WHERE id ='$id'";
+    $req = $conn->query($res);
+    if($req -> num_rows > 0){
+    $row = $req->fetch_assoc();
+    return $row; 
+    }
+}
+public function editContact(){
+    if(isset($_POST['edit'])){
+    $conn = $this->connect(); 
+    echo  $_GET['id'] ;     
+        $id = $_GET['id'];
+        $username = $_POST['username']; 
+        $email = $_POST['email']; 
+        $phone = $_POST['phone']; 
+        $adresse = $_POST['adresse']; 
+       
+
+        $edit_contact = "UPDATE contacts SET username = '$username', email = '$email', phone = '$phone', address = '$adresse' WHERE id = '$id'";
+        $conn->query($edit_contact);
+        header('location: contactlist.php');
+    }
 }
 
-        if(isset($_POST['edit'])){
-            $username = $_POST['username']; 
-            $email = $_POST['email']; 
-            $phone = $_POST['phone']; 
-            $adresse = $_POST['adresse']; 
-           
-
-            $edit_contact = "UPDATE contact SET 
-            username = '$username',
-            email = '$email',
-            phone = '$phone',
-            adresse = '$adresse',
-           
-            WHERE idUser = '$idUser'";
-            $conn->query($edit_contact);
-            header('location: contactlist.php');
-        }
-    }
-    }
     public function deleteContacts($id){
         $conn = $this->connect();
         $req = "DELETE FROM contacts WHERE id ='$id'";
@@ -99,15 +81,14 @@ while($row = $req->fetch_assoc()){
         if($res -> num_rows > 0){
             while($row = $res->fetch_assoc()){
                 ?>
-                
                     <tbody>
                         <tr>
                             <th scope="row"><?= $row['username'] ?></th>
                             <td><?= $row['email'] ?></td>
                             <td><?= $row['phone'] ?></td>
                             <td><?= $row['address'] ?></td>
-                            <td><a class="a" href="editform.php">Edit</a></td>
-                            <td><a id="del" class="a" href="deletcontact.php?id=<?= $row['id'] ?>">Delete</a></td>
+                            <td><a class="a" href="editform.php?id=<?= $row['id'] ?>">Edit</a></td>
+                            <td><a  class="a" href="deletcontact.php?id=<?= $row['id'] ?>">Delete</a></td>
                         </tr>
                     </tbody>
                 
@@ -124,3 +105,4 @@ while($row = $req->fetch_assoc()){
 
 
 ?>
+        

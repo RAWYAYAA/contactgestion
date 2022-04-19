@@ -1,3 +1,9 @@
+<?php
+    require_once 'contact.php';
+    $contact = new Contacts();
+    $muContact = $contact->getEditContacts($_GET['id']);
+    $contact->editContact();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,13 +15,16 @@
 <body>
 <form class="d-flex flex-column" method="POST" name="form">
         <label class="form-label">name</label>
-        <input type="text"  class="form-control " name="username" placeholder="Entrer le nom">
+        <input type="text"  class="form-control " name="username" placeholder="Entrer le nom" value="<?= $muContact['username'] ?? '' ?>">
         <label class="form-label">email</label>
-        <input type="text"  class="form-control " name="email" placeholder="Enter l'email">
+        <input type="text"  class="form-control " name="email" placeholder="Enter l'email" value="<?= $muContact['email'] ?? '' ?>">
         <label class="form-label">Phone</label>
-        <input type="tel"  class="form-control " name="phone" placeholder="Enter phone">
+        <input type="tel"  class="form-control " name="phone" placeholder="Enter phone" value="<?= $muContact['phone'] ?? '' ?>">
         <label class="form-label">Adresse</label>
-        <input type="Adresse"  class="form-control "  name="adresse" placeholder="Enter Adresse">
-        <input class="mt-4 py-2 fw-bold" type="submit" value="Add" name="edit"> 
+        <input type="Adresse"  class="form-control "  name="adresse" placeholder="Enter Adresse" value="<?= $muContact['address'] ?? '' ?>">
+        <input class="mt-4 py-2 fw-bold" type="submit" value="Add" id="submit" name="edit"> 
+<script src="./form.js">
+
+</script>        
 </body>
 </html>

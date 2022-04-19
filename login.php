@@ -44,15 +44,14 @@
         </form>
    </main>
    <?php
-    if($_SERVER['REQUEST_METHOD'] == 'POST'){
+   if($_SERVER['REQUEST_METHOD'] == 'POST'){
         if(isset($_POST['log'])){
-            require_once 'user.php';
             extract($_POST);
-            $user = new User($username , $password);
+            require_once 'user.php';
+            $user = new User($username,$password);
             $user->loginUser();
         }
-        
-    }
+   }
 
  ?>
 
